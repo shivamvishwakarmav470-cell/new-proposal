@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ishita's Prom Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #120f2b;
+  --ink-2: #1d1946;
+  --blush: #f4b6c8;
+  --rose: #e0577f;
+  --gold: #e8c987;
+  --text: #f7eff5;
+  --muted: #b9afcf;
+  --line: rgba(232, 201, 135, 0.45);
+  --font-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --font-body: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(60rem 38rem at 85% -10%, rgba(224, 87, 127, 0.28), transparent 60%),
+    radial-gradient(50rem 36rem at -10% 110%, rgba(86, 70, 190, 0.45), transparent 60%);
+  background-attachment: fixed;
+  color: var(--text);
+  font: 400 1rem/1.65 var(--font-body);
+  padding-block: 24px 96px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+#sky, #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#sky { z-index: 0; }
+#confetti { z-index: 5; }
+.wrap { position: relative; z-index: 1; max-width: 760px; margin-inline: auto; display: flex; flex-direction: column; gap: 64px; }
+.meta {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  padding-bottom: 12px; border-bottom: 1px solid var(--line);
+}
+.hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+.hero-text { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.kicker { margin: 0; color: var(--muted); font-weight: 300; letter-spacing: 0.04em; }
+h1 {
+  margin: 0; font-family: var(--font-display); font-weight: 500; line-height: 0.92;
+  font-size: clamp(3.2rem, 14vw, 6.4rem); letter-spacing: -0.01em; text-wrap: balance;
+}
+h1 em { display: block; font-style: italic; color: var(--blush); font-weight: 400; }
+.lede { margin: 0; max-width: 34ch; font-weight: 300; font-size: 1.1rem; }
+.song { margin: 0; font-size: 0.9rem; }
+.song a { color: var(--blush); text-underline-offset: 3px; }
+.count { border: 1px solid var(--gold); padding: 22px; display: flex; flex-direction: column; gap: 14px; background: rgba(255, 255, 255, 0.04); min-width: 0; }
+.count .label { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+.count .big { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.count .num { font-family: var(--font-display); font-size: clamp(3.4rem, 12vw, 5rem); line-height: 1; color: var(--blush); font-variant-numeric: tabular-nums; }
+.count .unit { color: var(--muted); font-weight: 300; }
+.clock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; border-top: 1px dashed var(--line); padding-top: 12px; }
+.clock div { display: flex; flex-direction: column; }
+.clock b { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.clock span { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.count .when { color: var(--text); font-weight: 300; font-size: 0.9rem; }
+h2 {
+  margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 6.4vw, 2.6rem);
+  line-height: 1.12; text-wrap: balance;
+}
+.eyebrow { margin: 0 0 12px; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.note { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; }
+.note p { margin: 0; color: var(--muted); font-weight: 300; font-size: 1.05rem; max-width: 46ch; }
+.note .sign { margin-top: 16px; font-family: var(--font-display); font-style: italic; color: var(--blush); font-size: 1.3rem; }
+.faq { margin-top: 20px; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer; padding: 18px 40px 18px 0; position: relative;
+  font-family: var(--font-display); font-size: 1.25rem; font-weight: 500;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); color: var(--gold); font-family: var(--font-body); font-weight: 300; font-size: 1.6rem; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.faq details p { margin: 0 0 18px; color: var(--muted); font-weight: 300; max-width: 52ch; }
+.ask { display: flex; flex-direction: column; gap: 24px; padding: 40px 0 8px; border-top: 1px solid var(--line); }
+.ask h2 { font-size: clamp(2rem, 8vw, 3.4rem); max-width: 16ch; }
+.actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn {
+  appearance: none; cursor: pointer; font: 500 0.82rem/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 17px 28px; border-radius: 2px; border: 1px solid var(--blush);
+  transition: background-color 0.2s, color 0.2s, left 0.28s ease, top 0.28s ease;
+}
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.btn-yes { background: var(--blush); color: var(--ink); }
+.btn-yes:hover { background: #fff; border-color: #fff; }
+.btn-no { background: transparent; color: var(--muted); border-color: rgba(185, 175, 207, 0.55); }
+.btn-no:hover { color: var(--text); }
+.btn-no.floating { position: fixed; z-index: 6; margin: 0; }
+.btn-no.gave-up { background: var(--blush); color: var(--ink); border-color: var(--blush); }
+.slot { display: inline-block; }
+.hint { margin: 0; font-size: 0.82rem; color: var(--muted); font-weight: 300; }
+.yes { display: flex; flex-direction: column; gap: 24px; }
+.yes h2 { max-width: 18ch; font-size: clamp(2rem, 8vw, 3.4rem); }
+.yes h2:focus { outline: none; }
+.yes > p { margin: 0; max-width: 46ch; color: var(--muted); font-weight: 300; }
+.ticket { display: grid; grid-template-columns: 1fr auto; border: 1px solid var(--gold); background: rgba(255, 255, 255, 0.045); }
+.t-main { padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.t-label { margin: 0; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+.t-names { margin: 0; font-family: var(--font-display); font-style: italic; font-size: clamp(1.5rem, 6vw, 2.2rem); line-height: 1.15; }
+.t-names span { color: var(--blush); padding-inline: 0.15em; }
+.ticket dl { margin: 0; display: grid; gap: 10px; }
+.ticket dl div { display: grid; grid-template-columns: 7rem 1fr; gap: 12px; font-size: 0.95rem; }
+.ticket dt { color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.7rem; padding-top: 0.2rem; }
+.ticket dd { margin: 0; }
+.t-stub {
+  border-left: 1px dashed var(--line); padding: 24px; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; line-height: 1; text-align: center; color: var(--ink);
+  background: var(--gold); letter-spacing: 0.06em;
+}
+.t-stub small { display: block; font: 500 0.62rem/1 var(--font-body); letter-spacing: 0.24em; margin-bottom: 8px; }
+.pick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.pick fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.pick legend { padding: 0; margin-bottom: 12px; font-family: var(--font-display); font-size: 1.25rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip span {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid rgba(185, 175, 207, 0.55);
+  font-size: 0.88rem; color: var(--muted); border-radius: 2px; transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.chip input:checked + span { background: var(--blush); color: var(--ink); border-color: var(--blush); }
+.chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+.chip i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.5); display: inline-block; }
+.ps { margin: 0; color: var(--muted); font-weight: 300; font-style: italic; font-family: var(--font-display); font-size: 1.15rem; max-width: 40ch; }
+footer { color: var(--muted); font-size: 0.85rem; font-weight: 300; border-top: 1px solid var(--line); padding-top: 16px; margin-top: -24px; }
+footer a { color: var(--blush); text-underline-offset: 3px; }
+footer a:focus-visible, .song a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.music {
+  position: fixed; z-index: 7; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 12px; padding: 12px 18px; cursor: pointer;
+  background: rgba(18, 15, 43, 0.82); color: var(--text); border: 1px solid var(--gold); border-radius: 999px;
+  font: 500 0.78rem/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.music:focus-visible { outline: 2px solid var(--blush); outline-offset: 3px; }
+.eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.eq i { width: 3px; height: 4px; background: var(--gold); display: block; }
+.music[aria-pressed="true"] .eq i { animation: bar 0.9s ease-in-out infinite; }
+.music[aria-pressed="true"] .eq i:nth-child(2) { animation-delay: 0.2s; }
+.music[aria-pressed="true"] .eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bar { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+@media (max-width: 640px) {
+  .wrap { gap: 48px; }
+  .hero, .note, .pick { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .ticket { grid-template-columns: 1fr; }
+  .t-stub { border-left: 0; border-top: 1px dashed var(--line); padding: 14px; }
+  .t-stub small { display: inline; margin: 0 10px 0 0; }
+  .ticket dl div { grid-template-columns: 6rem 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .btn, .chip span { transition: none; } .music[aria-pressed="true"] .eq i { animation: none; height: 10px; } }
+</style>
+</head>
+<body>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main class="wrap">
+  <header class="meta"><span>Prom Night</span><span>Saturday, 7 November</span></header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="kicker">One question, just for you</p>
+      <h1>Ishita <em>Enakshi,</em></h1>
+      <p class="lede">One night, a lot of lights, good music, and you. There is only one thing left to sort out: your answer.</p>
+      <p class="song" id="songRow" hidden>Press play on <a id="songLink" href="#" target="_blank" rel="noopener"></a> while you read.</p>
+    </div>
+    <aside class="count" id="count" aria-label="Countdown to prom night">
+      <span class="label" id="countLabel">Prom night in</span>
+      <div class="big"><span class="num" id="cDays">2</span><span class="unit" id="cUnit">days</span></div>
+      <div class="clock" id="clock">
+        <div><b id="cH">00</b><span>Hours</span></div>
+        <div><b id="cM">00</b><span>Min</span></div>
+        <div><b id="cS">00</b><span>Sec</span></div>
+      </div>
+      <span class="when">Saturday, 7 November</span>
+    </aside>
+  </section>
+
+  <section class="note">
+    <div>
+      <p class="eyebrow">A note from me</p>
+      <h2>Before you answer</h2>
+    </div>
+    <div>
+      <p>I could have asked you in a hallway, but you deserve more than a hurried question. So I built you a website. It took longer than it should have, and I would do it again.</p>
+      <p class="sign">Shivam</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Questions you might have</p>
+    <h2>Asked and answered</h2>
+    <div class="faq">
+      <details open>
+        <summary>What if I say no?</summary>
+        <p>The No button is currently unavailable. Try it anyway, it is fun to watch.</p>
+      </details>
+      <details>
+        <summary>What should I wear?</summary>
+        <p>Whatever makes you feel like the main character. Tell me your colour after you say yes, and I will match.</p>
+      </details>
+      <details>
+        <summary>I can't dance.</summary>
+        <p>Neither can I. We will be confidently terrible together, and nobody will notice because they will be busy with their own moves.</p>
+      </details>
+      <details>
+        <summary>Who picks the music?</summary>
+        <p>You get the first song. After that, we negotiate.</p>
+      </details>
+      <details>
+        <summary>Is this page really only for me?</summary>
+        <p>Yes. The stars in the background are only here for you too.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="ask" id="ask">
+    <p class="eyebrow">The question</p>
+    <h2>Will you go to prom with me?</h2>
+    <div class="actions">
+      <button class="btn btn-yes" id="yesBtn" type="button">Yes, I will</button>
+      <span class="slot" id="slot"><button class="btn btn-no" id="noBtn" type="button">No</button></span>
+    </div>
+    <p class="hint">The Yes button stays put. The other one is harder to catch.</p>
+  </section>
+
+  <section class="yes" id="yes" hidden>
+    <h2 id="yesTitle" tabindex="-1">Yay! Time to get ready.</h2>
+    <p>You said yes, which officially makes me the happiest person here. Pick your colour and your first song below, then screenshot the ticket and send it to me. That is how it gets confirmed.</p>
+    <div class="ticket">
+      <div class="t-main">
+        <p class="t-label">Prom Night &middot; Admit two</p>
+        <p class="t-names">Ishita Enakshi <span>&amp;</span> Shivam Kumar</p>
+        <dl>
+          <div><dt>Date</dt><dd id="tDate"></dd></div>
+          <div><dt>Venue</dt><dd id="tVenue"></dd></div>
+          <div><dt>Your colour</dt><dd id="tColor">Pick one below</dd></div>
+          <div><dt>First song</dt><dd id="tSong">Pick one below</dd></div>
+        </dl>
+      </div>
+      <div class="t-stub"><div><small>ADMIT</small>2</div></div>
+    </div>
+    <div class="pick">
+      <fieldset>
+        <legend>Your colour</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="color" value="Blush pink"><span><i style="background:#f4b6c8"></i>Blush</span></label>
+          <label class="chip"><input type="radio" name="color" value="Midnight blue"><span><i style="background:#2a2f6b"></i>Midnight</span></label>
+          <label class="chip"><input type="radio" name="color" value="Champagne gold"><span><i style="background:#e8c987"></i>Gold</span></label>
+          <label class="chip"><input type="radio" name="color" value="Emerald green"><span><i style="background:#2f8f6b"></i>Emerald</span></label>
+          <label class="chip"><input type="radio" name="color" value="Ruby red"><span><i style="background:#c0392b"></i>Ruby</span></label>
+          <label class="chip"><input type="radio" name="color" value="Surprise me"><span><i style="background:conic-gradient(#f4b6c8,#e8c987,#2f8f6b,#2a2f6b,#f4b6c8)"></i>Surprise me</span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>First dance mood</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="song" value="Slow and soft"><span>Slow and soft</span></label>
+          <label class="chip"><input type="radio" name="song" value="Upbeat"><span>Upbeat</span></label>
+          <label class="chip"><input type="radio" name="song" value="A throwback"><span>A throwback</span></label>
+          <label class="chip"><input type="radio" name="song" value="Surprise me"><span>Surprise me</span></label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <p class="ps">P.S. If you scrolled all the way down instead of tapping No, I think I already know your answer.</p>
+
+  <footer>Made by <a href="https://instagram.com/imnot_shivmm029" target="_blank" rel="noopener">Shivam Kumar</a> for Ishita.</footer>
+</main>
+
+<button class="music" id="musicBtn" type="button" aria-pressed="false">
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span id="musicLabel">Play music</span>
+</button>
+
+<script>
+(function () {
+  // Edit these once the plan is fixed. songUrl can be a Spotify or YouTube link.
+  var CONFIG = { date: "Saturday, 7 November", venue: "", songTitle: "", songUrl: "" };
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var css = getComputedStyle(document.documentElement);
+  function tok(n) { return css.getPropertyValue(n).trim(); }
+  var PALETTE = [tok("--blush"), tok("--rose"), tok("--gold"), "#ffffff", "#9b8cf0"];
+
+  document.getElementById("tDate").textContent = CONFIG.date;
+  document.getElementById("tVenue").textContent = CONFIG.venue || "I'll tell you in person";
+  if (CONFIG.songUrl && CONFIG.songTitle) {
+    var a = document.getElementById("songLink");
+    a.href = CONFIG.songUrl; a.textContent = CONFIG.songTitle;
+    document.getElementById("songRow").hidden = false;
+  }
+
+  /* Live countdown to 7 November 2026 */
+  var target = new Date(2026, 10, 7, 0, 0, 0).getTime();
+  var elD = document.getElementById("cDays"), elU = document.getElementById("cUnit"), elH = document.getElementById("cH"),
+      elM = document.getElementById("cM"), elS = document.getElementById("cS"), elL = document.getElementById("countLabel"),
+      clock = document.getElementById("clock"), box = document.getElementById("count");
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function tick() {
+    var diff = target - Date.now();
+    if (diff > 0) {
+      var s = Math.floor(diff / 1000), d = Math.floor(s / 86400); s -= d * 86400;
+      var h = Math.floor(s / 3600); s -= h * 3600; var m = Math.floor(s / 60); s -= m * 60;
+      elD.textContent = d; elU.textContent = d === 1 ? "day" : "days";
+      elH.textContent = pad(h); elM.textContent = pad(m); elS.textContent = pad(s);
+    } else if (diff > -86400000) {
+      elL.textContent = "Prom night is"; elD.textContent = "Today"; elU.textContent = ""; clock.hidden = true;
+    } else { box.hidden = true; }
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* Starry sky with the odd shooting star */
+  var sky = document.getElementById("sky"), sctx = sky.getContext("2d"), stars = [], shoot = null, nextShoot = 4000;
+  function sizeSky() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    sky.width = innerWidth * dpr; sky.height = innerHeight * dpr;
+    sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    stars = [];
+    var n = Math.round((innerWidth * innerHeight) / 9000);
+    for (var i = 0; i < n; i++) stars.push({
+      x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+      r: Math.random() * 1.3 + 0.3, a: Math.random() * 0.5 + 0.3,
+      s: Math.random() * 0.0015 + 0.0005, p: Math.random() * 6.28
+    });
+  }
+  function drawSky(t) {
+    sctx.clearRect(0, 0, innerWidth, innerHeight);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i], al = s.a + Math.sin(t * s.s + s.p) * 0.25;
+      sctx.globalAlpha = Math.max(0.05, Math.min(1, al));
+      sctx.fillStyle = "#ffffff";
+      sctx.beginPath(); sctx.arc(s.x, s.y, s.r, 0, 6.2832); sctx.fill();
+    }
+    if (!reduce) {
+      if (!shoot && t > nextShoot) {
+        shoot = { x: Math.random() * innerWidth * 0.8 + innerWidth * 0.2, y: Math.random() * innerHeight * 0.4, life: 0 };
+      }
+      if (shoot) {
+        shoot.life += 1; shoot.x -= 9; shoot.y += 4.5;
+        var g = sctx.createLinearGradient(shoot.x, shoot.y, shoot.x + 90, shoot.y - 45);
+        g.addColorStop(0, "rgba(255,255,255,0.9)"); g.addColorStop(1, "rgba(255,255,255,0)");
+        sctx.globalAlpha = 1; sctx.strokeStyle = g; sctx.lineWidth = 1.6;
+        sctx.beginPath(); sctx.moveTo(shoot.x, shoot.y); sctx.lineTo(shoot.x + 90, shoot.y - 45); sctx.stroke();
+        if (shoot.life > 50) { shoot = null; nextShoot = t + 6000 + Math.random() * 6000; }
+      }
+    }
+    sctx.globalAlpha = 1;
+  }
+  function loopSky(t) {
+    if (!document.hidden) drawSky(t);
+    requestAnimationFrame(loopSky);
+  }
+  sizeSky(); drawSky(0);
+  if (!reduce) requestAnimationFrame(loopSky);
+  window.addEventListener("resize", function () { sizeSky(); drawSky(0); });
+
+  /* Background music: an original soft music-box tune made with the Web Audio API */
+  var Music = (function () {
+    var ctx, bus, master, timer, nextT = 0, step = 0, on = false;
+    var BEAT = 60 / 72, EIGHTH = BEAT / 2;
+    var CH = [[60, 64, 67, 72], [57, 60, 64, 69], [53, 57, 60, 65], [55, 59, 62, 67]];
+    var ARP = [0, 1, 2, 3, 2, 1, 2, 1];
+    var MEL = [76, 0, 79, 76, 81, 0, 79, 76, 79, 0, 76, 72, 74, 0, 76, 79];
+    function fq(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+    function pluck(m, t, dur, vol, type) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type; o.frequency.value = fq(m);
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + 0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(bus); o.start(t); o.stop(t + dur + 0.05);
+    }
+    function pad(m, t, dur, vol) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine"; o.frequency.value = fq(m);
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + 0.9);
+      g.gain.setValueAtTime(vol, t + dur - 0.9); g.gain.linearRampToValueAtTime(0.0001, t + dur + 0.4);
+      o.connect(g); g.connect(bus); o.start(t); o.stop(t + dur + 0.5);
+    }
+    function schedule() {
+      while (nextT < ctx.currentTime + 0.6) {
+        var c = Math.floor(step / 8) % 4, pos = step % 8, chord = CH[c];
+        pluck(chord[ARP[pos]], nextT, 1.5, 0.11, "triangle");
+        if (pos === 0) { pad(chord[0] - 24, nextT, BEAT * 4, 0.1); pad(chord[2] - 12, nextT, BEAT * 4, 0.04); }
+        if (pos % 2 === 0) {
+          var mel = MEL[(step / 2) % 16];
+          if (mel) { pluck(mel, nextT, 2, 0.09, "sine"); pluck(mel + 12, nextT, 1, 0.025, "sine"); }
+        }
+        nextT += EIGHTH; step++;
+      }
+    }
+    function build() {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ctx = new AC();
+      master = ctx.createGain(); master.gain.value = 0;
+      bus = ctx.createGain(); bus.gain.value = 1;
+      var delay = ctx.createDelay(1.0), fb = ctx.createGain(), lp = ctx.createBiquadFilter();
+      delay.delayTime.value = 0.36; fb.gain.value = 0.38; lp.type = "lowpass"; lp.frequency.value = 2400;
+      bus.connect(master); bus.connect(delay); delay.connect(lp); lp.connect(fb); fb.connect(delay); lp.connect(master);
+      master.connect(ctx.destination);
+      return true;
+    }
+    function start() {
+      if (!ctx && !build()) return false;
+      ctx.resume();
+      nextT = ctx.currentTime + 0.1;
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0.55, ctx.currentTime + 2);
+      timer = setInterval(schedule, 120); schedule(); on = true;
+      return true;
+    }
+    function stop() {
+      clearInterval(timer); on = false;
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
+      setTimeout(function () { if (!on && ctx) ctx.suspend(); }, 700);
+    }
+    return { toggle: function () { if (on) { stop(); return false; } return start(); }, isOn: function () { return on; } };
+  })();
+  var musicBtn = document.getElementById("musicBtn"), musicLabel = document.getElementById("musicLabel");
+  musicBtn.addEventListener("click", function () {
+    var playing = Music.toggle();
+    musicBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+    musicLabel.textContent = playing ? "Pause music" : "Play music";
+  });
+
+  /* Confetti */
+  var cv = document.getElementById("confetti"), cx = cv.getContext("2d");
+  function heart(c, x, y, s) {
+    c.beginPath();
+    c.moveTo(x, y + s * 0.35);
+    c.bezierCurveTo(x - s, y - s * 0.3, x - s * 0.55, y - s, x, y - s * 0.4);
+    c.bezierCurveTo(x + s * 0.55, y - s, x + s, y - s * 0.3, x, y + s * 0.35);
+    c.fill();
+  }
+  function confetti() {
+    if (reduce) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var ps = [], i;
+    for (i = 0; i < 190; i++) ps.push({
+      x: Math.random() * innerWidth, y: -20 - Math.random() * innerHeight * 0.5,
+      vx: (Math.random() - 0.5) * 3, vy: Math.random() * 3 + 2,
+      w: Math.random() * 8 + 5, rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.25,
+      c: PALETTE[i % PALETTE.length], h: i % 3 === 0
+    });
+    var start = performance.now();
+    (function frame(now) {
+      cx.clearRect(0, 0, innerWidth, innerHeight);
+      var alive = 0;
+      for (var k = 0; k < ps.length; k++) {
+        var p = ps[k];
+        p.x += p.vx + Math.sin((now + k * 60) / 400) * 0.6; p.y += p.vy; p.rot += p.vr;
+        if (p.y < innerHeight + 30) alive++;
+        cx.save(); cx.translate(p.x, p.y); cx.rotate(p.rot); cx.fillStyle = p.c;
+        if (p.h) heart(cx, 0, 0, p.w); else cx.fillRect(-p.w / 2, -p.w / 4, p.w, p.w / 2);
+        cx.restore();
+      }
+      if (alive && now - start < 7000) requestAnimationFrame(frame);
+      else cx.clearRect(0, 0, innerWidth, innerHeight);
+    })(start);
+  }
+
+  /* Ticket pickers */
+  Array.prototype.forEach.call(document.querySelectorAll("input[name=color]"), function (r) {
+    r.addEventListener("change", function () { document.getElementById("tColor").textContent = r.value; });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("input[name=song]"), function (r) {
+    r.addEventListener("change", function () { document.getElementById("tSong").textContent = r.value; });
+  });
+
+  /* Yes / No */
+  var yesBtn = document.getElementById("yesBtn"), noBtn = document.getElementById("noBtn"), slot = document.getElementById("slot");
+  var ask = document.getElementById("ask"), yes = document.getElementById("yes"), yesTitle = document.getElementById("yesTitle");
+  var labels = ["Are you sure?", "Think again", "Ishita, please", "You're breaking my heart", "One more chance"];
+  var LIMIT = labels.length + 1, tries = 0, floating = false, gaveUp = false, last = 0;
+
+  function sayYes() {
+    ask.hidden = true; noBtn.hidden = true; yes.hidden = false;
+    confetti();
+    yesTitle.focus({ preventScroll: true });
+    yes.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }
+
+  function giveUp() {
+    gaveUp = true; floating = false;
+    noBtn.classList.remove("floating");
+    noBtn.classList.add("gave-up");
+    noBtn.style.left = ""; noBtn.style.top = "";
+    slot.style.width = ""; slot.style.height = "";
+    noBtn.textContent = "Fine, yes";
+  }
+
+  function dodge() {
+    if (gaveUp) return;
+    var now = Date.now();
+    if (now - last < 350) return;
+    last = now;
+    tries++;
+    if (tries >= LIMIT) { giveUp(); return; }
+    noBtn.textContent = labels[tries - 1];
+    if (!floating) {
+      var r = noBtn.getBoundingClientRect();
+      slot.style.width = r.width + "px"; slot.style.height = r.height + "px";
+      noBtn.classList.add("floating"); floating = true;
+    }
+    var m = 16, w = noBtn.offsetWidth, h = noBtn.offsetHeight;
+    var maxX = Math.max(m, innerWidth - w - m), maxY = Math.max(m, innerHeight - h - m);
+    var yr = yesBtn.getBoundingClientRect(), x, y, n = 0, hit;
+    do {
+      x = m + Math.random() * (maxX - m); y = m + Math.random() * (maxY - m);
+      hit = x < yr.right + 12 && x + w > yr.left - 12 && y < yr.bottom + 12 && y + h > yr.top - 12;
+      n++;
+    } while (hit && n < 40);
+    noBtn.style.left = x + "px"; noBtn.style.top = y + "px";
+    yesBtn.style.fontSize = (0.82 + tries * 0.05) + "rem";
+  }
+
+  yesBtn.addEventListener("click", sayYes);
+  noBtn.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") dodge(); });
+  noBtn.addEventListener("pointerdown", function (e) { if (!gaveUp) { e.preventDefault(); dodge(); } });
+  noBtn.addEventListener("focus", dodge);
+  noBtn.addEventListener("click", function (e) {
+    if (gaveUp) { sayYes(); } else { e.preventDefault(); }
+  });
+  window.addEventListener("resize", function () {
+    if (floating) { noBtn.style.left = ""; noBtn.style.top = ""; floating = false; noBtn.classList.remove("floating"); slot.style.width = ""; slot.style.height = ""; }
+  });
+})();
+</script>
+
+</body>
+</html>
